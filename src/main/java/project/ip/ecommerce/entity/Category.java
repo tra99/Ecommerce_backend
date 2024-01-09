@@ -1,26 +1,31 @@
 package project.ip.ecommerce.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.UUID;
 
 @Entity
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Long id;
+    private String id;
     private String categoryName;
-    public Long getCategoryId() {
+
+    public Category() {
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public String getCategoryId() {
         return id;
     }
-    public void setCategoryId(Long categoryId) {
+
+    public void setCategoryId(String categoryId) {
         this.id = categoryId;
     }
+
     public String getCategoryName() {
         return categoryName;
     }
+
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }

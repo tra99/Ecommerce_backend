@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 import project.ip.ecommerce.entity.Category;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends JpaRepository<Category, String> {
     
-    // Add custom query methods here if needed
+    Category findByCategoryName(String categoryName);
     
 }

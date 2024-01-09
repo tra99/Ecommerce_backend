@@ -27,7 +27,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
+    public ResponseEntity<Category> getCategoryById(@PathVariable String id) {
         Optional<Category> category = categoryService.getCategoryById(id);
         return category.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                       .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -40,19 +40,23 @@ public class CategoryController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
-        Optional<Category> existingCategory = categoryService.getCategoryById(id);
-        if (existingCategory.isPresent()) {
-            category.setCategoryId(id);
-            Category updatedCategory = categoryService.createOrUpdateCategory(category);
-            return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
+    public ResponseEntity<Category> updateCategory(@PathVariable String id, @RequestBody Category updatedCategory) {
+        Optional<Category> existingCategoryOptional = categoryService.getCategoryById(id);
+        
+        if (existingCategoryOptional.isPresent()) {
+            Category existingCategory = existingCategoryOptional.get();
+            existingCategory.setCategoryName(updatedCategory.getCategoryName());
+            
+            Category savedCategory = categoryService.createOrUpdateCategory(existingCategory);
+            return new ResponseEntity<>(savedCategory, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteCategoryById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCategoryById(@PathVariable String id) {
         Optional<Category> category = categoryService.getCategoryById(id);
         if (category.isPresent()) {
             categoryService.deleteCategoryById(id);
