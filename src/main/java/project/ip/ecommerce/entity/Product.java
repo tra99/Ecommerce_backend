@@ -2,8 +2,11 @@ package project.ip.ecommerce.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Product {
@@ -21,6 +24,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Variant> variants = new HashSet<>();
 
     public String getId() {
         return id;
@@ -69,7 +76,24 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+    public Set<Variant> getVariants() {
+        return variants;
+    }
 
+    public void setVariants(Set<Variant> variants) {
+        this.variants = variants;
+    }
+
+    public void addVariant(Variant variant) {
+        variant.setProduct(this);
+        variants.add(variant);
+    }
+
+    public void removeVariant(Variant variant) {
+        variants.remove(variant);
+        variant.setProduct(null);
+    }
+}
     // Fix relation between product to image, product have not key to make relation with image 
 
     // @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -83,4 +107,3 @@ public class Product {
     // public void setImages(List<Image> images) {
     //     this.images = images;
     // }
-}

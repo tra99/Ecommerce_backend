@@ -3,26 +3,30 @@ package project.ip.ecommerce.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.UUID;
-
 import project.ip.ecommerce.entity.Category;
 import project.ip.ecommerce.entity.Product;
 import project.ip.ecommerce.entity.ProductRequest;
+import project.ip.ecommerce.entity.Variant;
 import project.ip.ecommerce.service.CategoryService;
 import project.ip.ecommerce.service.ProductService;
+import project.ip.ecommerce.service.VariantService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final VariantService variantService;
 
-    public ProductController(ProductService productService,CategoryService categoryService) {
+    public ProductController(ProductService productService,CategoryService categoryService,VariantService variantService) {
         this.productService = productService;
         this.categoryService=categoryService;
+        this.variantService=variantService;
     }
 
     @GetMapping
@@ -72,4 +76,20 @@ public class ProductController {
         String message = "Product with ID " + id + " deleted successfully.";
         return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
     }
+
+    // Variant for product
+    @PostMapping("/product/{productId}/viriants/create")
+    public ResponseEntity<Variant> createVariantForProduct(@PathVariable String productId, @RequestBody Variant variant) {
+        Optional<Product> existingProduct = productService.getProductById(productId);
+
+        if (existingProduct.isPresent()) {
+            variant.setProduct(existingProduct.get());
+            variant.setId(UUID.randomUUID().toString());
+            Variant createdVariant = variantService.createOrUpdateVariant(variant);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdVariant);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
 }
