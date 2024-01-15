@@ -2,7 +2,9 @@ package project.ip.ecommerce.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -93,17 +95,32 @@ public class Product {
         variants.remove(variant);
         variant.setProduct(null);
     }
+       // Fix relation between product to image, product have not key to make relation with image 
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Image> images;
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+    public void addImage(Image image) {
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+        image.setProduct(this);
+        images.add(image);
+    }
+
+    public void removeImage(Image image) {
+        if (images != null) {
+            images.remove(image);
+            image.setProduct(null);
+        }
+    }
 }
-    // Fix relation between product to image, product have not key to make relation with image 
-
-    // @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    // @JoinTable(name = "image",cascade=CascadeType.ALL)
-    // private List<Image> images;
-
-    // public List<Image> getImages() {
-    //     return images;
-    // }
-
-    // public void setImages(List<Image> images) {
-    //     this.images = images;
-    // }
+ 

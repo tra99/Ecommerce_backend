@@ -10,7 +10,6 @@ import project.ip.ecommerce.entity.Variant;
 import project.ip.ecommerce.service.CategoryService;
 import project.ip.ecommerce.service.ProductService;
 import project.ip.ecommerce.service.VariantService;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -78,7 +77,7 @@ public class ProductController {
     }
 
     // Variant for product
-    @PostMapping("/product/{productId}/viriants/create")
+    @PostMapping("/product/{productId}/variants/create")
     public ResponseEntity<Variant> createVariantForProduct(@PathVariable String productId, @RequestBody Variant variant) {
         Optional<Product> existingProduct = productService.getProductById(productId);
 
