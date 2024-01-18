@@ -3,14 +3,13 @@ package project.ip.ecommerce.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import project.ip.ecommerce.entity.Category;
 import project.ip.ecommerce.service.CategoryService;
-
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/categories")
 public class CategoryController {
 

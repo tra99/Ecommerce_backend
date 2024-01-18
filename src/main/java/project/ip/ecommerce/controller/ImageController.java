@@ -10,8 +10,8 @@ import project.ip.ecommerce.service.ImageService;
 
 import java.io.IOException;
 
-
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/images")
 public class ImageController {
 
