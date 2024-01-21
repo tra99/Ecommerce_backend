@@ -1,13 +1,11 @@
 package project.ip.ecommerce.entity;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
