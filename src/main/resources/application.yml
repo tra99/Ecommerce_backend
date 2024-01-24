@@ -8,13 +8,21 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     url: jdbc:mysql://localhost:3306/ecommerce
-    password:
+    password: Wathnak123
 
   jpa:
       hibernate: 
           ddl-auto: update
       show-sql: true
       open-in-view: true
-     
-
-
+  mail:
+        host: smtp.gmail.com
+        port: 587
+        username: pisethorg2023@gmail.com
+        password: whoo yljt vtxt qojh
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true

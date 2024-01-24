@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import project.ip.ecommerce.service.JWTService;
-import project.ip.ecommerce.tp6.service.UserService;
+import project.ip.ecommerce.service.UserService;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.FilterChain;
