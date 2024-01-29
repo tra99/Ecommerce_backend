@@ -20,19 +20,40 @@ public class EmailServiceImpl implements EmailService {
 
 
     // Add this method to implement the new interface method
-    @Override
-    public String sendTokenMail(EmailDetails details) {
-        try {
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getRecipient());
-            mailMessage.setText("Your reset token: " + details.getToken());
-            mailMessage.setSubject("Reset Token");
+    // @Override
+    // public String sendTokenMail(EmailDetails details) {
+    //     try {
+    //         SimpleMailMessage mailMessage = new SimpleMailMessage();
+    //         mailMessage.setFrom(sender);
+    //         mailMessage.setTo(details.getRecipient());
+    //         mailMessage.setText("Your reset password code: " + details.getToken());
+    //         mailMessage.setSubject("Reset Password");
 
-            javaMailSender.send(mailMessage);
-            return "Token Sent Successfully...";
-        } catch (Exception e) {
-            return "Error while Sending Token";
-        }
+    //         javaMailSender.send(mailMessage);
+    //         return "Token Sent Successfully...";
+    //     } catch (Exception e) {
+    //         return "Error while Sending Token";
+    //     }
+    // }
+
+    //reset v2
+    @Override
+public String sendTokenMail(EmailDetails details) {
+    try {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(sender);
+        mailMessage.setTo(details.getRecipient());
+        
+        // Assuming resetUrl is a variable containing the URL for the reset password page
+        String resetUrl = "http://localhost:5173/reset-password?token=" + details.getToken();
+        // Providing a clickable link instead of just the token
+        mailMessage.setText("Click the link below to reset your password:\n" + resetUrl);
+        mailMessage.setSubject("Reset Password");
+
+        javaMailSender.send(mailMessage);
+        return "Token Sent Successfully...";
+    } catch (Exception e) {
+        return "Error while Sending Token";
     }
+}
 }

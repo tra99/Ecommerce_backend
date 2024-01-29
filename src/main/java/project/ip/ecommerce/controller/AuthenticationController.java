@@ -139,7 +139,7 @@ public ResponseEntity<?> signIn(@RequestBody SignInRequest signInRequest) {
 
             // Prepare the response in JSON format
             Map<String, String> response = new HashMap<>();
-            response.put("message", "Reset token sent successfully");
+            response.put("message", "Reset password code sent successfully");
             // response.put("resetToken", resetToken);
 
             EmailDetails emailDetails = new EmailDetails();
