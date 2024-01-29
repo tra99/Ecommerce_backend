@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
-
 import project.ip.ecommerce.entity.Role;
 import project.ip.ecommerce.entity.User;
 import project.ip.ecommerce.repository.UserRepository;
