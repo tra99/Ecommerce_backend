@@ -9,6 +9,7 @@ import project.ip.ecommerce.service.OrderService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/orders")
 public class OrderController {
 
