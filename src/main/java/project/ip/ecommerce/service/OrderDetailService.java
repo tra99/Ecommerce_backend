@@ -29,8 +29,9 @@ public class OrderDetailService {
         return orderDetailRepository.findById(id);
     }
 
-    public OrderDetail createOrUpdateOrderDetail(OrderDetail orderDetail,String productId) {
-        Product product=productService.getProductById(productId).orElse(null);
+    public OrderDetail createOrUpdateOrderDetail(OrderDetail orderDetail) {
+        String productId = orderDetail.getProductId(); 
+        Product product = productService.getProductById(productId).orElse(null);
         orderDetail.setProduct(product);
         return orderDetailRepository.save(orderDetail);
     }

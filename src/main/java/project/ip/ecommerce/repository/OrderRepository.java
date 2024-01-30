@@ -16,4 +16,6 @@ public interface OrderRepository extends JpaRepository<OrderTable, String> {
     // Custom query to find an order table by ID
     @Query("SELECT o FROM OrderTable o WHERE o.id = :id")
     Optional<OrderTable> findOrderTableById(@Param("id") String id);
+
+    Optional<OrderTable> findById(String id);
 }

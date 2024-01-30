@@ -33,20 +33,21 @@ public class OrderDetailController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<OrderDetail> createOrderDetail(@RequestBody OrderDetail orderDetail, @RequestParam String productId) {
-        OrderDetail createdOrderDetail = orderDetailService.createOrUpdateOrderDetail(orderDetail, productId);
+    public ResponseEntity<OrderDetail> createOrderDetail(@RequestBody OrderDetail orderDetail) {
+        OrderDetail createdOrderDetail = orderDetailService.createOrUpdateOrderDetail(orderDetail);
         return new ResponseEntity<>(createdOrderDetail, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<OrderDetail> updateOrderDetail(@PathVariable String id, @RequestBody OrderDetail orderDetail, @RequestParam String productId) {
+    public ResponseEntity<OrderDetail> updateOrderDetail(@PathVariable String id, @RequestBody OrderDetail orderDetail) {
         if (orderDetailService.getOrderDetailById(id).isPresent()) {
-            OrderDetail updatedOrderDetail = orderDetailService.createOrUpdateOrderDetail(orderDetail, productId);
+            OrderDetail updatedOrderDetail = orderDetailService.createOrUpdateOrderDetail(orderDetail);
             return new ResponseEntity<>(updatedOrderDetail, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
 
     @DeleteMapping("/delete/{id}")
