@@ -2,8 +2,8 @@ package project.ip.ecommerce.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.ip.ecommerce.entity.OrderTable; 
-import project.ip.ecommerce.repository.OrderRepository; 
+import project.ip.ecommerce.entity.OrderTable;
+import project.ip.ecommerce.repository.OrderRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +18,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<OrderTable> getAllOrders() { 
+    public List<OrderTable> getAllOrders() {
         return orderRepository.findAllOrderTables();
     }
 

@@ -55,4 +55,3 @@ public class OrderController {
         return new ResponseEntity<>("Order with ID " + id + " deleted successfully.", HttpStatus.NO_CONTENT);
     }
 }
-
