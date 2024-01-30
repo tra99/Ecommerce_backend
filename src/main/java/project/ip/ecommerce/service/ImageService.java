@@ -2,6 +2,7 @@ package project.ip.ecommerce.service;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,5 +47,21 @@ public class ImageService {
             return ImageUtils.decompressImage(dbImageData.get().getImageData());
         }
         return null;
+    }
+
+    public List<Image>getAllImages(){
+        return repository.findAll();
+    }
+
+    public Optional<Image>getImageById(Long id){
+        return repository.findById(id);
+    }
+
+    public Image createOrUpdate(Image image){
+        return repository.save(image);
+    }
+
+    public void deleteImageById(long id){
+        repository.deleteById(id);
     }
 }
