@@ -41,6 +41,9 @@ public class Image {
     @JsonBackReference
     private Product product;
 
-    
+    public Image(String name) {
+        this.name = name;
+    }
+
 }
 

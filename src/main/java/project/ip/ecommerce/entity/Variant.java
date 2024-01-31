@@ -51,11 +51,19 @@ public class Variant {
     @JsonBackReference
     private Product product;
 
+    public Variant(String color, String size) {
+        this.color = color;
+        this.size = size;
+    }
+
     public Product getProduct() {
         return product;
     }
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+    public Variant() {
+        // Add a default constructor
     }
 }

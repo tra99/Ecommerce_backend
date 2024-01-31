@@ -1,5 +1,8 @@
 package project.ip.ecommerce.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +13,7 @@ import project.ip.ecommerce.entity.Variant;
 import project.ip.ecommerce.service.CategoryService;
 import project.ip.ecommerce.service.ProductService;
 import project.ip.ecommerce.service.VariantService;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -91,4 +95,14 @@ public class ProductController {
         }
     }
     
+    @GetMapping("/pagination")
+    public ResponseEntity<Page<Product>> getPagedProducts(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = productService.getAllProducts(pageable);
+        
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    } 
 }

@@ -1,7 +1,8 @@
 package project.ip.ecommerce.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import project.ip.ecommerce.entity.Product;
 import project.ip.ecommerce.repository.ProductRepository;
 
@@ -28,10 +29,11 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    
-
     public void deleteProductById(String id) {
         productRepository.deleteById(id);
     }
-}
 
+    public Page<Product> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+}
