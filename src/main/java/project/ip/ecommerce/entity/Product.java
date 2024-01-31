@@ -93,7 +93,6 @@ public class Product {
         variants.remove(variant);
         variant.setProduct(null);
     }
-       // Fix relation between product to image, product have not key to make relation with image 
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -120,5 +119,7 @@ public class Product {
             image.setProduct(null);
         }
     }
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Promotion> promotions = new ArrayList<>();
 }
  

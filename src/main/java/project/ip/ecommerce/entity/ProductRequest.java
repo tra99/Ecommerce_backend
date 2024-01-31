@@ -7,8 +7,6 @@ public class ProductRequest {
     private int quantity;
     private CategoryRequest category;
 
-    // Constructors, getters, and setters for all fields
-
     public String getName() {
         return name;
     }
@@ -59,7 +57,5 @@ public class ProductRequest {
         public void setId(String id) {
             this.id = id;
         }
-
-        // Constructor, getters, and setters for category ID
     }
 }

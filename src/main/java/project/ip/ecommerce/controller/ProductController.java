@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/products")
