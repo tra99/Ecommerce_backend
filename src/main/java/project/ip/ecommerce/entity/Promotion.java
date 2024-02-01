@@ -1,10 +1,8 @@
 package project.ip.ecommerce.entity;
 
 import lombok.Data;
-
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 import org.hibernate.annotations.GenericGenerator; 
 
 @Entity
