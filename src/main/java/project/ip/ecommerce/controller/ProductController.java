@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/products")
@@ -105,4 +106,10 @@ public class ProductController {
         
         return new ResponseEntity<>(products, HttpStatus.OK);
     } 
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProductsByName(@RequestParam String name) {
+        List<Product> products = productService.searchProductsByName(name.toLowerCase());
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 }
