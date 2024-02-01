@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import project.ip.ecommerce.entity.Promotion;
 import project.ip.ecommerce.service.PromotionService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,8 @@ public class PromotionController {
     @PostMapping("/create")
     public ResponseEntity<Promotion> createPromotion(@RequestBody Promotion promotion) {
         Promotion createdPromotion = promotionService.createOrUpdatePromotion(promotion);
+        promotion.setStartDate(LocalDateTime.now());
+
         return new ResponseEntity<>(createdPromotion, HttpStatus.CREATED);
     }
 

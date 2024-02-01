@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import project.ip.ecommerce.entity.Category;
+import project.ip.ecommerce.entity.Image;
 import project.ip.ecommerce.entity.Product;
 import project.ip.ecommerce.entity.Variant;
 import project.ip.ecommerce.repository.CategoryRepository;
@@ -31,14 +32,14 @@ public class ProductDataSeeder implements CommandLineRunner {
 
     private void seedProductData() {
         try {
-            if (productRepository.count() == 1) {
+            if (productRepository.count() == 0) {
                 // Only seed data if the repository is empty
 
                 // Get or create a category (you can adjust this based on your actual category setup)
                 Category electronicsCategory = categoryRepository.findByCategoryName("Electronics");
                 if (electronicsCategory == null) {
                     electronicsCategory = new Category();
-                    electronicsCategory.setCategoryName("Electronics");
+                    electronicsCategory.setCategoryId("8c9a555a-ea4d-41a9-a4ca-06b905134a43");
                     categoryRepository.save(electronicsCategory);
                 }
 
@@ -57,8 +58,8 @@ public class ProductDataSeeder implements CommandLineRunner {
                 product1.addVariant(variant2);
 
                 // Add images
-                // product1.addImage(new Image("smartphone_image_1.jpg"));
-                // product1.addImage(new Image("smartphone_image_2.jpg"));
+                product1.addImage(new Image("smartphone_image_1.jpg"));
+                product1.addImage(new Image("smartphone_image_2.jpg"));
 
                 productRepository.save(product1);
             }

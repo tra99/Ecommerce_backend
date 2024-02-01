@@ -37,5 +37,7 @@ public class Promotion {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public Promotion() {}
+    public Promotion() {
+        this.startDate = LocalDateTime.now();
+    }
 }
