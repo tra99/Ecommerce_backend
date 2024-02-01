@@ -4,14 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import project.ip.ecommerce.entity.Category;
-import project.ip.ecommerce.entity.Image;
 import project.ip.ecommerce.entity.Product;
-import project.ip.ecommerce.entity.Variant;
 import project.ip.ecommerce.repository.CategoryRepository;
 import project.ip.ecommerce.repository.ProductRepository;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class ProductDataSeeder implements CommandLineRunner {
@@ -32,36 +28,31 @@ public class ProductDataSeeder implements CommandLineRunner {
 
     private void seedProductData() {
         try {
-            if (productRepository.count() == 0) {
-                // Only seed data if the repository is empty
+            if (productRepository.count() == 6) {
 
-                // Get or create a category (you can adjust this based on your actual category setup)
-                Category electronicsCategory = categoryRepository.findByCategoryName("Electronics");
-                if (electronicsCategory == null) {
-                    electronicsCategory = new Category();
-                    electronicsCategory.setCategoryId("8c9a555a-ea4d-41a9-a4ca-06b905134a43");
-                    categoryRepository.save(electronicsCategory);
+                Category category = categoryRepository.findByCategoryName("Electronics");
+                if (category == null) {
+                    category = new Category();
+                    category.setCategoryId("8c9a555a-ea4d-41a9-a4ca-06b905134a43");
+                    categoryRepository.save(category);
                 }
 
-                // Create a product and add variants and images
                 Product product1 = new Product();
                 product1.setName("Smartphone");
                 product1.setDescription("A high-end smartphone");
                 product1.setPrice(799.99);
                 product1.setQuantity(50);
-                product1.setCategory(electronicsCategory);
+                product1.setCategory(category);
 
-                // Add variants
-                Variant variant1 = new Variant("Color", "Black");
-                Variant variant2 = new Variant("Color", "White");
-                product1.addVariant(variant1);
-                product1.addVariant(variant2);
-
-                // Add images
-                product1.addImage(new Image("smartphone_image_1.jpg"));
-                product1.addImage(new Image("smartphone_image_2.jpg"));
+                Product product2 = new Product();
+                product2.setName("Smartphone");
+                product2.setDescription("A high-end smartphone");
+                product2.setPrice(799.99);
+                product2.setQuantity(50);
+                product2.setCategory(category);
 
                 productRepository.save(product1);
+                productRepository.save(product2);
             }
         } catch (Exception e) {
             System.err.println(e);
