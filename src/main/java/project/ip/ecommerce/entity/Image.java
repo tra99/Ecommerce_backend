@@ -44,5 +44,12 @@ public class Image {
     public Image(String name) {
         this.name = name;
     }
+
+    public Image(String name, byte[] imageData, Product product,String type) {
+        this.name = name;
+        this.imageData = imageData;
+        this.product = product;
+        this.type=type;
+    }
 }
 

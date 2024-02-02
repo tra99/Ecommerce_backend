@@ -1,3 +1,67 @@
+# spring:
+#   servlet:
+#     multipart:
+#       max-file-size: 10MB
+#       max-request-size: 10MB
+
+#   datasource:
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     username: root
+#     url: jdbc:mysql://localhost:3306/ecommerce?maxAllowedPacket=64M
+#     password: 
+
+#   jpa:
+#     hibernate:
+#       ddl-auto: update
+#     show-sql: true
+#     open-in-view: true
+
+#   mail:
+#     host: smtp.gmail.com
+#     port: 587
+#     username: pisethorg2023@gmail.com
+#     password: whoo yljt vtxt qojh
+#     properties:
+#       mail:
+#         smtp:
+#           auth: true
+#           starttls:
+#             enable: true
+
+# server:
+#   port: 7000
+#   error:
+#     include-message: always
+
+
+# # server:
+# #   port: 7000
+# #   error:
+# #     include-message: always
+
+# # spring:
+# #   datasource:
+# #     driver-class-name: com.mysql.cj.jdbc.Driver
+# #     username: root
+# #     url: jdbc:mysql://localhost:3306/ecommerce
+# #     password: 
+
+# #   jpa:
+# #       hibernate: 
+# #         ddl-auto: update
+# #       show-sql: true
+# #       open-in-view: true
+# #   mail:
+# #         host: smtp.gmail.com
+# #         port: 587
+# #         username: pisethorg2023@gmail.com
+# #         password: whoo yljt vtxt qojh
+# #         properties:
+# #             mail:
+# #                 smtp:
+# #                     auth: true
+# #                     starttls:
+# #                         enable: true
 spring:
   servlet:
     multipart:
@@ -9,10 +73,15 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/ecommerce
     password: 
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+      maximum-pool-size: 5
+      pool-name: HikariCP
 
   jpa:
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
     open-in-view: true
 
@@ -34,31 +103,3 @@ server:
     include-message: always
 
 
-# server:
-#   port: 7000
-#   error:
-#     include-message: always
-
-# spring:
-#   datasource:
-#     driver-class-name: com.mysql.cj.jdbc.Driver
-#     username: root
-#     url: jdbc:mysql://localhost:3306/ecommerce
-#     password: 
-
-#   jpa:
-#       hibernate: 
-#         ddl-auto: update
-#       show-sql: true
-#       open-in-view: true
-#   mail:
-#         host: smtp.gmail.com
-#         port: 587
-#         username: pisethorg2023@gmail.com
-#         password: whoo yljt vtxt qojh
-#         properties:
-#             mail:
-#                 smtp:
-#                     auth: true
-#                     starttls:
-#                         enable: true
