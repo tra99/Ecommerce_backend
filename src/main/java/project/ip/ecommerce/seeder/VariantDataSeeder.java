@@ -1,9 +1,10 @@
 package project.ip.ecommerce.seeder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
 import project.ip.ecommerce.entity.Product;
 import project.ip.ecommerce.entity.Variant;
 import project.ip.ecommerce.repository.ProductRepository;
@@ -15,6 +16,8 @@ import java.util.UUID;
 
 @Component
 public class VariantDataSeeder implements CommandLineRunner {
+
+    private static final Logger logger = LoggerFactory.getLogger(VariantDataSeeder.class);
 
     private final VariantRepository variantRepository;
     private final ProductRepository productRepository;
@@ -32,43 +35,59 @@ public class VariantDataSeeder implements CommandLineRunner {
 
     private void seedVariantData() {
         try {
-            List<String> productIds = productRepository.findAllProductIds();
-            
-            for (String productId : productIds) {
-                Product product = productRepository.findById(productId).orElse(null);
+            if (variantRepository.count() == 0) {
+                // Only seed data if no variants exist
 
-                if (product == null) {
-                    System.err.println("Product with ID " + productId + " does not exist.");
+                List<String> productIds = productRepository.findAllProductIds();
+
+                for (String productId : productIds) {
+                    Product product = productRepository.findById(productId).orElse(null);
+
+                    if (product == null) {
+                        logger.error("Product with ID {} does not exist.", productId);
+                        continue;
+                    }
+
+                    // Check if variants already exist for the product
+                    List<Variant> existingVariants = variantRepository.findByProduct(product);
+                    if (!existingVariants.isEmpty()) {
+                        logger.info("Variants already exist for product: {}", product.getName());
+                        continue; // Skip seeding for this product
+                    }
+
+                    List<Variant> newVariants = generateVariantsForProduct(product);
+                    variantRepository.saveAll(newVariants);
                 }
-
-                List<Variant> variantsForProduct = generateVariantsForProduct(product);
-                variantRepository.saveAll(variantsForProduct); 
+                logger.info("Variant data seeded successfully.");
+            } else {
+                logger.info("Variant data already exists. Skipping seeding.");
             }
         } catch (Exception e) {
-            System.err.println(e);
+            logger.error("Error while seeding variant data: {}", e.getMessage());
         }
     }
-
     private List<Variant> generateVariantsForProduct(Product product) {
         String productName = product.getName();
-        
+
+        List<Variant> newVariants;
         if ("Product1".equals(productName)) {
-            return List.of(
-                    createVariant("ColorA", "SizeA","Product1", product),
-                    createVariant("ColorB", "SizeB","Product1", product)
+            newVariants = List.of(
+                    createVariant("ColorA", "SizeA", "Product1", product),
+                    createVariant("ColorB", "SizeB", "Product1", product)
             );
         } else if ("Product2".equals(productName)) {
-            return List.of(
-                    createVariant("ColorC", "SizeC","Product2", product),
-                    createVariant("ColorD", "SizeD","Product2", product)
+            newVariants = List.of(
+                    createVariant("ColorC", "SizeC", "Product2", product),
+                    createVariant("ColorD", "SizeD", "Product2", product)
             );
+        } else {
+            // Add more conditions for other products
+            newVariants = Collections.emptyList();
         }
-        // Add more conditions for other products
-    
-        return Collections.emptyList();
+        return newVariants;
     }
 
-    private Variant createVariant(String color, String size,String name,Product product) {
+    private Variant createVariant(String color, String size, String name, Product product) {
         Variant variant = new Variant();
         variant.setId(UUID.randomUUID().toString());
         variant.setColor(color);

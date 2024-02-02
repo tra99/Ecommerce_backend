@@ -30,18 +30,25 @@ public class ProductDataSeeder implements CommandLineRunner {
 
     private void seedProductData() {
         try {
-            List<String> categoryIds = categoryRepository.findAllCategoryIds();
+            if (productRepository.count() == 0) {
+                // Only seed data if no products exist
 
-            for (String categoryId : categoryIds) {
-                Category category = categoryRepository.findById(categoryId).orElse(null);
+                List<String> categoryIds = categoryRepository.findAllCategoryIds();
 
-                if (category == null) {
-                    System.err.println("Category with ID " + categoryId + " does not exist.");
-                    continue; 
+                for (String categoryId : categoryIds) {
+                    Category category = categoryRepository.findById(categoryId).orElse(null);
+
+                    if (category == null) {
+                        System.err.println("Category with ID " + categoryId + " does not exist.");
+                        continue;
+                    }
+
+                    List<Product> productsForCategory = generateProductsForCategory(category);
+                    productRepository.saveAll(productsForCategory);
                 }
-
-                List<Product> productsForCategory = generateProductsForCategory(category);
-                productRepository.saveAll(productsForCategory);
+                System.out.println("Product data seeded successfully.");
+            } else {
+                System.out.println("Product data already exists. Skipping seeding.");
             }
 
         } catch (Exception e) {
@@ -62,13 +69,13 @@ public class ProductDataSeeder implements CommandLineRunner {
                     createProduct("Product2", "Description2", 149.99, 20, category)
             );
         }
-        // other more product
-        
+        // Add more conditions for other categories
+
         else {
             return Collections.emptyList();
         }
     }
-    
+
     private Product createProduct(String name, String description, double price, int quantity, Category category) {
         Product product = new Product();
         product.setName(name);
