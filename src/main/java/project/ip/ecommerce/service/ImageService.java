@@ -59,34 +59,43 @@ public class ImageService {
     }
 
     public String finalizeUpload(String productId) {
-        ByteArrayOutputStream buffer = uploadBuffers.remove(productId);
-        String fileName = uploadFileNames.remove(productId); // Retrieve the saved fileName
-
-        if (buffer != null && fileName != null) {
-            byte[] imageData = buffer.toByteArray();
-
-            Optional<Product> optionalProduct = productRepository.findById(productId);
-
-            if (optionalProduct.isPresent()) {
-                Product product = optionalProduct.get();
-                Image image = repository.save(Image.builder()
-                        .name(fileName) // Use the saved fileName
-                        .type("image/png") // Set the appropriate content type
-                        .imageData(ImageUtils.compressImage(imageData))
-                        .product(product)
-                        .build()
-                );
-
-                if (image != null) {
-                    return "Upload completed successfully for product ID: " + productId;
+        try {
+            ByteArrayOutputStream buffer = uploadBuffers.remove(productId);
+            String fileName = uploadFileNames.remove(productId); // Retrieve the saved fileName
+    
+            if (buffer != null && fileName != null) {
+                byte[] imageData = buffer.toByteArray();
+    
+                Optional<Product> optionalProduct = productRepository.findById(productId);
+    
+                if (optionalProduct.isPresent()) {
+                    Product product = optionalProduct.get();
+                    Image image = repository.save(Image.builder()
+                            .name(fileName) // Use the saved fileName
+                            .type("image/png") // Set the appropriate content type
+                            .imageData(ImageUtils.compressImage(imageData))
+                            .product(product)
+                            .build()
+                    );
+    
+                    if (image != null) {
+                        return "Upload completed successfully for product ID: " + productId;
+                    } else {
+                        throw new IllegalStateException("Failed to save image for product ID: " + productId);
+                    }
+                } else {
+                    throw new IllegalStateException("Product not found for ID: " + productId);
                 }
+            } else {
+                throw new IllegalStateException("Upload buffer or fileName not found for product ID: " + productId);
             }
-        } else {
-            throw new IllegalStateException("Upload buffer or fileName not found for product ID: " + productId);
+        } catch (Exception e) {
+            // Log the exception or handle it appropriately
+            e.printStackTrace();
+            return "Failed to finalize upload for product ID: " + productId + ". Reason: " + e.getMessage();
         }
-
-        return "Failed to finalize upload for product ID: " + productId;
     }
+    
 
     public byte[] downloadImage(String fileName) {
         Optional<Image> dbImageData = repository.findByName(fileName);
