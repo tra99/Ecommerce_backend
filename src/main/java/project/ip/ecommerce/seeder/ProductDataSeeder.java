@@ -59,14 +59,12 @@ public class ProductDataSeeder implements CommandLineRunner {
     private List<Product> generateProductsForCategory(Category category) {
         if ("Addidas".equals(category.getCategoryName())) {
             return List.of(
-                    createProduct("Product1", "Description1", 99.99, 10, category),
-                    createProduct("Product2", "Description2", 149.99, 20, category)
+                    createProduct("Product1", "Description1", 99.99, 10, category)
             );
         }
         if ("Nike".equals(category.getCategoryName())) {
             return List.of(
-                    createProduct("Product1", "Description1", 99.99, 10, category),
-                    createProduct("Product2", "Description2", 149.99, 20, category)
+                    createProduct("Product2", "Description1", 99.99, 10, category)
             );
         }
         // Add more conditions for other categories
