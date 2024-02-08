@@ -112,4 +112,22 @@ public class ProductController {
         List<Product> products = productService.searchProductsByName(name.toLowerCase());
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+    @GetMapping("/category/{categoryName}")
+    public ResponseEntity<List<Product>> getProductsByCategoryName(@PathVariable String categoryName) {
+        List<Product> products = productService.getProductsByCategoryName(categoryName);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{categoryName}/pagination")
+    public ResponseEntity<Page<Product>> getPagedProductsByCategoryName(
+            @PathVariable String categoryName,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = productService.getProductsByCategoryName(categoryName, pageable);
+        
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    } 
 }

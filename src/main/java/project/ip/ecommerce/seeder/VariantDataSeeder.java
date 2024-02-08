@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import jakarta.transaction.Transactional;
 import project.ip.ecommerce.entity.Product;
 import project.ip.ecommerce.entity.Variant;
 import project.ip.ecommerce.repository.ProductRepository;

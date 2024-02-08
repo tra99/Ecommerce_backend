@@ -40,4 +40,12 @@ public class ProductService {
     public List<Product> searchProductsByName(String name){
         return productRepository.findByNameContainingIgnoreCase(name);
     }
+
+    public List<Product> getProductsByCategoryName(String categoryName) {
+        return productRepository.findByCategoryCategoryName(categoryName);
+    }
+
+    public Page<Product> getProductsByCategoryName(String categoryName, Pageable pageable) {
+        return productRepository.findByCategoryCategoryName(categoryName, pageable);
+    }
 }
