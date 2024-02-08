@@ -166,10 +166,12 @@ public class ImageDataSeeder implements CommandLineRunner {
             // Set product_id manually for each image
             String productId1 = "d02348e6-bbb1-44c5-9de1-e9d880cb65e5"; // Replace with the actual product ID
             String productId2 = "f8f95ac7-dce7-4aa8-8682-27838292bc58"; // Replace with the actual product ID
+            
 
             // Replace with the path to your sample image files
             File imageFile1 = ResourceUtils.getFile("src\\main\\java\\project\\ip\\ecommerce\\assets\\images\\sneaker.png");
             File imageFile2 = ResourceUtils.getFile("src\\main\\java\\project\\ip\\ecommerce\\assets\\images\\bot12.png");
+
 
             // Create Image entities with manually set product IDs
             Image image1 = createImage("image3.png", imageFile1, productId1,"image/png");

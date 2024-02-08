@@ -98,7 +98,7 @@ spring:
             enable: true
 
 server:
-  port: 7000
+  port: 7001
   error:
     include-message: always
 

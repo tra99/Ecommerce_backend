@@ -122,5 +122,6 @@ public class Product {
     }
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Promotion> promotions = new ArrayList<>();
+
 }
  

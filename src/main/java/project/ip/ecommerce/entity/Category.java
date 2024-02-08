@@ -1,5 +1,6 @@
 package project.ip.ecommerce.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.util.UUID;
@@ -7,19 +8,22 @@ import java.util.UUID;
 @Entity
 public class Category {
     @Id
-    private String id;
+    @Column(name = "category_id") // Adjust the column name if needed
+    private String categoryId;
+
+    @Column(name = "category_name") // Adjust the column name if needed
     private String categoryName;
 
     public Category() {
-        this.id = UUID.randomUUID().toString();
+        this.categoryId = UUID.randomUUID().toString();
     }
 
     public String getCategoryId() {
-        return id;
+        return categoryId;
     }
 
     public void setCategoryId(String categoryId) {
-        this.id = categoryId;
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {
