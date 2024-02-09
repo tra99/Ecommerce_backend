@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import project.ip.ecommerce.entity.Product;
 
@@ -24,4 +26,7 @@ public interface ProductRepository extends JpaRepository<Product,String>{
     // List<Product> findByName(String name);
     List<Product> findAllByName(String name);
 
+    List<Product> findByCategoryCategoryName(String categoryName);
+
+    Page<Product> findByCategoryCategoryName(String categoryName, Pageable pageable);
 }
